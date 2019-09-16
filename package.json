@@ -1,0 +1,19 @@
+{
+  "name": "csse_we_29_procurement",
+  "version": "1.0.0",
+  "description": "Repository for CSSE Module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ishansen97/CSSE_WE_29_Procurement.git"
+  },
+  "author": "Linisha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ishansen97/CSSE_WE_29_Procurement/issues"
+  },
+  "homepage": "https://github.com/ishansen97/CSSE_WE_29_Procurement#readme"
+}
