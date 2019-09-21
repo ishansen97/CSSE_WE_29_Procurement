@@ -16,13 +16,10 @@ public class Item {
 	private int itemQuantity;
 	private String itemMetric;
 	private String supplierId;
+	private boolean isCritical;
 	
-	
-
-	
-
 	public Item(String id, int itemId, double itemPrice, String itemType, int itemQuantity, String itemMetric,
-			String supplierId) {
+			String supplierId, boolean isCritical) {
 		super();
 		Id = id;
 		this.itemId = itemId;
@@ -31,18 +28,20 @@ public class Item {
 		this.itemQuantity = itemQuantity;
 		this.itemMetric = itemMetric;
 		this.supplierId = supplierId;
+		this.isCritical = isCritical;
 	}
 
 	
 
-	public Item(int itemId, double itemPrice, String itemType, int itemQuantity, String itemMetric, String supplierId) {
+	public Item(double itemPrice, String itemType, int itemQuantity, String itemMetric, String supplierId,
+			boolean isCritical) {
 		super();
-		this.itemId = itemId;
 		this.itemPrice = itemPrice;
 		this.itemType = itemType;
 		this.itemQuantity = itemQuantity;
 		this.itemMetric = itemMetric;
 		this.supplierId = supplierId;
+		this.isCritical = isCritical;
 	}
 
 	public Item(double itemPrice, String itemType, int itemQuantity, String itemMetric, String supplierId) {
@@ -124,7 +123,18 @@ public class Item {
 	public void setItemMetric(String itemMetric) {
 		this.itemMetric = itemMetric;
 	}
-	
+
+
+
+	public boolean isCritical() {
+		return isCritical;
+	}
+
+
+
+	public void setCritical(boolean isCritical) {
+		this.isCritical = isCritical;
+	}
 	
 	
 }

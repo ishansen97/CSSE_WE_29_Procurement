@@ -1,5 +1,7 @@
 package com.csse.procurement.CSSE_WE_29.entity;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
@@ -12,28 +14,54 @@ public class Notification {
 	private String _id;
 	private int notificationId;
 	private String message;
+	private PurchaseOrder purchaseOrder;
 	private boolean isRead;
+	private String receiverType;
+	private Date publishedDate;
+	private Date readDate;
 	
-	public Notification(String _id, int notificationId, String message, boolean isRead) {
+	
+
+
+	public Notification(String _id, int notificationId, String message, PurchaseOrder purchaseOrder, boolean isRead,
+			String receiverType, Date publishedDate, Date readDate) {
 		super();
 		this._id = _id;
 		this.notificationId = notificationId;
 		this.message = message;
+		this.purchaseOrder = purchaseOrder;
 		this.isRead = isRead;
+		this.receiverType = receiverType;
+		this.publishedDate = publishedDate;
+		this.readDate = readDate;
 	}
 
-	public Notification(int notificationId, String message, boolean isRead) {
+
+
+	public Notification(int notificationId, String message, PurchaseOrder purchaseOrder, boolean isRead,
+			String receiverType, Date publishedDate, Date readDate) {
 		super();
 		this.notificationId = notificationId;
 		this.message = message;
+		this.purchaseOrder = purchaseOrder;
 		this.isRead = isRead;
+		this.receiverType = receiverType;
+		this.publishedDate = publishedDate;
+		this.readDate = readDate;
 	}
 
-	public Notification(String message, boolean isRead) {
+
+	public Notification(String message, PurchaseOrder purchaseOrder, boolean isRead, String receiverType,
+			Date publishedDate, Date readDate) {
 		super();
 		this.message = message;
+		this.purchaseOrder = purchaseOrder;
 		this.isRead = isRead;
+		this.receiverType = receiverType;
+		this.publishedDate = publishedDate;
+		this.readDate = readDate;
 	}
+
 
 	public Notification() {
 		super();
@@ -70,6 +98,41 @@ public class Notification {
 	public void setRead(boolean isRead) {
 		this.isRead = isRead;
 	}
+
+	public PurchaseOrder getPurchaseOrder() {
+		return purchaseOrder;
+	}
+
+	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+		this.purchaseOrder = purchaseOrder;
+	}
+
+
+	public String getReceiverType() {
+		return receiverType;
+	}
+
+
+	public void setReceiverType(String receiverType) {
+		this.receiverType = receiverType;
+	}
+
+	public Date getPublishedDate() {
+		return publishedDate;
+	}
+
+	public void setPublishedDate(Date publishedDate) {
+		this.publishedDate = publishedDate;
+	}
+
+	public Date getReadDate() {
+		return readDate;
+	}
+
+	public void setReadDate(Date readDate) {
+		this.readDate = readDate;
+	}
+	
 	
 	
 }
