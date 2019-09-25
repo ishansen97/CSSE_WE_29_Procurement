@@ -157,7 +157,7 @@ public class PurchaseOrderService {
 		purchaseOrder.setQuantity(request.getQuantity());
 		purchaseOrder.setCost(request.getCost());
 		purchaseOrder.setSupplierId(request.getSupplierId());
-		
+		purchaseOrder.setSiteId(request.getSiteId());
 		
 		try {
 			order = purchaseOrderRepository.save(purchaseOrder);

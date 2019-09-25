@@ -125,11 +125,9 @@ public class Item {
 	}
 
 
-
 	public boolean isCritical() {
 		return isCritical;
 	}
-
 
 
 	public void setCritical(boolean isCritical) {

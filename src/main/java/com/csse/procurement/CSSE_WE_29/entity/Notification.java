@@ -1,6 +1,7 @@
 package com.csse.procurement.CSSE_WE_29.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,53 +16,56 @@ public class Notification {
 	private int notificationId;
 	private String message;
 	private PurchaseOrder purchaseOrder;
+	private List<Item> items;
+	private Supplier supplier;
 	private boolean isRead;
 	private String receiverType;
 	private Date publishedDate;
 	private Date readDate;
-	
-	
 
 
-	public Notification(String _id, int notificationId, String message, PurchaseOrder purchaseOrder, boolean isRead,
-			String receiverType, Date publishedDate, Date readDate) {
+
+	public Notification(String _id, int notificationId, String message, PurchaseOrder purchaseOrder, List<Item> items,
+			Supplier supplier, boolean isRead, String receiverType, Date publishedDate, Date readDate) {
 		super();
 		this._id = _id;
 		this.notificationId = notificationId;
 		this.message = message;
 		this.purchaseOrder = purchaseOrder;
+		this.items = items;
+		this.supplier = supplier;
 		this.isRead = isRead;
 		this.receiverType = receiverType;
 		this.publishedDate = publishedDate;
 		this.readDate = readDate;
 	}
 
-
-
-	public Notification(int notificationId, String message, PurchaseOrder purchaseOrder, boolean isRead,
-			String receiverType, Date publishedDate, Date readDate) {
+	public Notification(int notificationId, String message, PurchaseOrder purchaseOrder, List<Item> items,
+			Supplier supplier, boolean isRead, String receiverType, Date publishedDate, Date readDate) {
 		super();
 		this.notificationId = notificationId;
 		this.message = message;
 		this.purchaseOrder = purchaseOrder;
+		this.items = items;
+		this.supplier = supplier;
 		this.isRead = isRead;
 		this.receiverType = receiverType;
 		this.publishedDate = publishedDate;
 		this.readDate = readDate;
 	}
 
-
-	public Notification(String message, PurchaseOrder purchaseOrder, boolean isRead, String receiverType,
-			Date publishedDate, Date readDate) {
+	public Notification(String message, PurchaseOrder purchaseOrder, List<Item> items, Supplier supplier,
+			boolean isRead, String receiverType, Date publishedDate, Date readDate) {
 		super();
 		this.message = message;
 		this.purchaseOrder = purchaseOrder;
+		this.items = items;
+		this.supplier = supplier;
 		this.isRead = isRead;
 		this.receiverType = receiverType;
 		this.publishedDate = publishedDate;
 		this.readDate = readDate;
 	}
-
 
 	public Notification() {
 		super();
@@ -132,6 +136,24 @@ public class Notification {
 	public void setReadDate(Date readDate) {
 		this.readDate = readDate;
 	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+	
+	
 	
 	
 	

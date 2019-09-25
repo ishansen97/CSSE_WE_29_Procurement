@@ -21,6 +21,7 @@ public class UpdatePurchaseOrderRequest {
 	private int quantity;
 	private double cost;
 	private String supplierId;
+	private String siteId;
 	
 	
 	public String get_id() {
@@ -95,6 +96,13 @@ public class UpdatePurchaseOrderRequest {
 	public void setSupplierId(String supplierId) {
 		this.supplierId = supplierId;
 	}
+	public String getSiteId() {
+		return siteId;
+	}
+	public void setSiteId(String siteId) {
+		this.siteId = siteId;
+	}
+	
 	
 }
 

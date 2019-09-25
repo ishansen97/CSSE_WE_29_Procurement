@@ -25,11 +25,15 @@ public class PurchaseOrder {
 	private int quantity;
 	private double cost;
 	private String supplierId;
+	private String siteId;
+
+
+	
 
 
 	public PurchaseOrder(String _id, String ordId, String ordType, String ordStatus, String companyName,
 			String deliveryAddress, Date ordDate, Date deliveryDate, List<Item> itemIdList, int quantity, double cost,
-			String supplierId) {
+			String supplierId, String siteId) {
 		super();
 		this._id = _id;
 		this.ordId = ordId;
@@ -43,11 +47,13 @@ public class PurchaseOrder {
 		this.quantity = quantity;
 		this.cost = cost;
 		this.supplierId = supplierId;
+		this.siteId = siteId;
 	}
 
 
 	public PurchaseOrder(String ordId, String ordType, String ordStatus, String companyName, String deliveryAddress,
-			Date ordDate, Date deliveryDate, List<Item> itemIdList, int quantity, double cost, String supplierId) {
+			Date ordDate, Date deliveryDate, List<Item> itemIdList, int quantity, double cost, String supplierId,
+			String siteId) {
 		super();
 		this.ordId = ordId;
 		this.ordType = ordType;
@@ -60,13 +66,12 @@ public class PurchaseOrder {
 		this.quantity = quantity;
 		this.cost = cost;
 		this.supplierId = supplierId;
+		this.siteId = siteId;
 	}
 
 
-
-
 	public PurchaseOrder(String ordType, String ordStatus, String companyName, String deliveryAddress, Date ordDate,
-			Date deliveryDate, List<Item> itemIdList, int quantity, double cost, String supplierId) {
+			Date deliveryDate, List<Item> itemIdList, int quantity, double cost, String supplierId, String siteId) {
 		super();
 		this.ordType = ordType;
 		this.ordStatus = ordStatus;
@@ -78,6 +83,7 @@ public class PurchaseOrder {
 		this.quantity = quantity;
 		this.cost = cost;
 		this.supplierId = supplierId;
+		this.siteId = siteId;
 	}
 
 
@@ -229,7 +235,15 @@ public class PurchaseOrder {
 		this.supplierId = supplierId;
 	}
 
-	
+
+	public String getSiteId() {
+		return siteId;
+	}
+
+
+	public void setSiteId(String siteId) {
+		this.siteId = siteId;
+	}
 	
 
 }
