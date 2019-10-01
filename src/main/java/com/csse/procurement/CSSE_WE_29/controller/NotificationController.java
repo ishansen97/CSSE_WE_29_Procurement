@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.csse.procurement.CSSE_WE_29.entity.Notification;
 import com.csse.procurement.CSSE_WE_29.service.NotificationService;
+import com.csse.procurement.CSSE_WE_29.service.NotificationSubject;
+import com.csse.procurement.CSSE_WE_29.service.NotificationSubjectImpl;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200"}, allowedHeaders = {"authorization", "content-type"})
@@ -21,9 +23,11 @@ public class NotificationController {
 
 	@Autowired
 	private NotificationService notificationService;
+	@Autowired
+	private NotificationSubjectImpl notificationSubject;
 	
 	@RequestMapping("api/notification/get-all-notifications")
-	public ResponseEntity<List<Notification>> getItems() {
+	public ResponseEntity<List<Notification>> getNotifications() {
 		List<Notification> notifications = null;
 		notifications = notificationService.findAllNotifications();
 		
@@ -36,18 +40,24 @@ public class NotificationController {
 	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "api/notification/insert-notification")
-	public ResponseEntity<Boolean> insertItem(@RequestBody Notification notification) {
-		boolean isInserted = notificationService.saveNotification(notification);
+	public ResponseEntity<Boolean> insertNotification(@RequestBody Notification notification) {
+//		boolean isInserted = notificationService.saveNotification(notification);
+		if (notification.getReceiverType().equals("Manager")) {
+			notificationSubject.setProcurementNotificationForManager(notification);
+		}
+		else if (notification.getPurchaseOrder().getOrdStatus().equals("Approved") || notification.getPurchaseOrder().getOrdStatus().equals("Rejected")) {
+			notificationSubject.setProcurementNotification(notification);
+		}
 		
-		if (isInserted)
-			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.OK);
-		else
-			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.INTERNAL_SERVER_ERROR);
+//		if (isInserted)
+			return new ResponseEntity<Boolean>(new Boolean(true), HttpStatus.OK);
+//		else
+//			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	
 	@RequestMapping("api/notification/get-notification/{notificationId}")
-	public ResponseEntity<Notification> getItem(@PathVariable("notificationId") int notificationId) {
+	public ResponseEntity<Notification> getNotification(@PathVariable("notificationId") int notificationId) {
 		Notification notification = null;
 		notification = notificationService.findByNotificationId(notificationId);
 		

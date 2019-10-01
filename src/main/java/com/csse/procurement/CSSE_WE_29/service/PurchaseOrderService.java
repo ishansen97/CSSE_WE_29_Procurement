@@ -82,9 +82,10 @@ public class PurchaseOrderService {
 		return true;
 	}
 	
-	public boolean deletePurchaseOrder(ObjectId _id) {
+	public boolean deletePurchaseOrder(PurchaseOrder purchaseOrder) {
+		
 		try {
-			purchaseOrderRepository.deleteById(_id);
+			purchaseOrderRepository.delete(purchaseOrder);
 			
 		} catch (Exception ex) {
 			throw ex;

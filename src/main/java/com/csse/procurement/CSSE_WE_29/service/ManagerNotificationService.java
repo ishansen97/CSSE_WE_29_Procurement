@@ -1,41 +1,48 @@
 package com.csse.procurement.CSSE_WE_29.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.csse.procurement.CSSE_WE_29.constants.NotificationConstants;
+import com.csse.procurement.CSSE_WE_29.entity.ManagerNotification;
 import com.csse.procurement.CSSE_WE_29.entity.Notification;
-import com.csse.procurement.CSSE_WE_29.entity.ProcurementNotification;
 import com.csse.procurement.CSSE_WE_29.repository.ManagerNotificationRepository;
 import com.csse.procurement.CSSE_WE_29.repository.NotificationRepository;
-import com.csse.procurement.CSSE_WE_29.repository.ProcurementNotificationRepository;
-import com.csse.procurement.CSSE_WE_29.repository.SupplierNotifcationRepository;
 
 @Service
-public class NotificationService implements NotificationListener {
+public class ManagerNotificationService implements NotificationListener {
 
 	@Autowired
-	private NotificationRepository notificationRepository;
+	private ManagerNotificationRepository managerNotificationRepository;
 	@Autowired
 	private NotificationConstants notificationConstants;
 	
-	public List<Notification> findAllNotifications() {
-		return notificationRepository.findAll();
+	public List<ManagerNotification> findAllNotifications() {
+		return managerNotificationRepository.findAll();
 	}
 	
 	public Notification findByNotificationId(int notification_Id) {
-		return notificationRepository.findByNotificationId(notification_Id);
+		return managerNotificationRepository.findByNotificationId(notification_Id);
 	}
 	
 	public boolean saveNotification(Notification notification) {
 		try {
 			int notificationId = createNotificationId();
-			notification.setNotificationId(notificationId);
+			ManagerNotification managerNotification = new ManagerNotification();
+			managerNotification.setNotificationId(notificationId);
+			managerNotification.setReceiverType("Manager");
+			managerNotification.setMessage(notification.getMessage());
+			managerNotification.setPublishedDate(notification.getPublishedDate());
+			managerNotification.setReadDate(notification.getReadDate());
+			managerNotification.setPurchaseOrder(notification.getPurchaseOrder());
+			managerNotification.setItems(notification.getItems());
+			managerNotification.setSupplier(notification.getSupplier());
 			
-			notificationRepository.save(notification);
+			System.out.println("Not. " + managerNotificationRepository);
+			
+			managerNotificationRepository.save(managerNotification);
 			
 			
 		} catch (Exception ex) {
@@ -47,7 +54,7 @@ public class NotificationService implements NotificationListener {
 
 	public boolean deleteItem(Notification notification) {
 		try {
-			notificationRepository.delete(notification);
+			managerNotificationRepository.delete((ManagerNotification) notification);
 			
 		} catch (Exception ex) {
 			throw ex;
@@ -56,11 +63,12 @@ public class NotificationService implements NotificationListener {
 	}
 	
 	public int createNotificationId() {
-		Notification notification = notificationRepository.findTop1ByOrderByNotificationIdDesc();
+
 		int last_Id = 0;
 		int new_Id = 0;
 		
 		try {
+			Notification notification = managerNotificationRepository.findTop1ByOrderByNotificationIdDesc();
 			last_Id = notification.getNotificationId();
 			
 			if (last_Id != 0) {
@@ -77,12 +85,11 @@ public class NotificationService implements NotificationListener {
 	
 	public boolean updateReadStatus(Notification notification) {
 		try {
-			notificationRepository.save(notification);
+			managerNotificationRepository.save((ManagerNotification) notification);
 		} catch (Exception ex) {
 			
 		}
 		return true;
 	}
-	
 
 }

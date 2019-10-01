@@ -68,4 +68,14 @@ public class ItemService {
 		
 		return new_Id;
 	}
+	
+	public boolean updateItem(Item item) {
+		try {
+			itemRepository.save(item);
+			
+		} catch (Exception ex) {
+			throw ex;
+		}
+		return true;
+	}
 }
