@@ -19,14 +19,14 @@ public class Notification {
 	private List<Item> items;
 	private Supplier supplier;
 	private boolean isRead;
+	private String sender;
 	private String receiverType;
 	private Date publishedDate;
 	private Date readDate;
 
 
-
 	public Notification(String _id, int notificationId, String message, PurchaseOrder purchaseOrder, List<Item> items,
-			Supplier supplier, boolean isRead, String receiverType, Date publishedDate, Date readDate) {
+			Supplier supplier, boolean isRead, String sender, String receiverType, Date publishedDate, Date readDate) {
 		super();
 		this._id = _id;
 		this.notificationId = notificationId;
@@ -35,13 +35,15 @@ public class Notification {
 		this.items = items;
 		this.supplier = supplier;
 		this.isRead = isRead;
+		this.sender = sender;
 		this.receiverType = receiverType;
 		this.publishedDate = publishedDate;
 		this.readDate = readDate;
 	}
 
+
 	public Notification(int notificationId, String message, PurchaseOrder purchaseOrder, List<Item> items,
-			Supplier supplier, boolean isRead, String receiverType, Date publishedDate, Date readDate) {
+			Supplier supplier, boolean isRead, String sender, String receiverType, Date publishedDate, Date readDate) {
 		super();
 		this.notificationId = notificationId;
 		this.message = message;
@@ -49,23 +51,29 @@ public class Notification {
 		this.items = items;
 		this.supplier = supplier;
 		this.isRead = isRead;
+		this.sender = sender;
 		this.receiverType = receiverType;
 		this.publishedDate = publishedDate;
 		this.readDate = readDate;
 	}
 
+
+	
+
 	public Notification(String message, PurchaseOrder purchaseOrder, List<Item> items, Supplier supplier,
-			boolean isRead, String receiverType, Date publishedDate, Date readDate) {
+			boolean isRead, String sender, String receiverType, Date publishedDate, Date readDate) {
 		super();
 		this.message = message;
 		this.purchaseOrder = purchaseOrder;
 		this.items = items;
 		this.supplier = supplier;
 		this.isRead = isRead;
+		this.sender = sender;
 		this.receiverType = receiverType;
 		this.publishedDate = publishedDate;
 		this.readDate = readDate;
 	}
+
 
 	public Notification() {
 		super();
@@ -109,6 +117,15 @@ public class Notification {
 
 	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
 		this.purchaseOrder = purchaseOrder;
+	}
+
+	public String getSender() {
+		return sender;
+	}
+
+
+	public void setSender(String sender) {
+		this.sender = sender;
 	}
 
 

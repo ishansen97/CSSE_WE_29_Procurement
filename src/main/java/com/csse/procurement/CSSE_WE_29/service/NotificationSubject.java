@@ -8,9 +8,9 @@ import com.csse.procurement.CSSE_WE_29.entity.Notification;
 public interface NotificationSubject {
 	public void addNotificationListeners(NotificationListener listener);
 	public void removeNotificationListeners(NotificationListener listener);
-	public void setManagerNotification(Notification notification);
-	public void setProcurementNotification(Notification notification);
-	public void setProcurementNotificationForManager(Notification notification);
-	public void setSiteManagerNotification(Notification notification);
-	public void setSupplierNotification(Notification notification);
+	public boolean setManagerNotification(Notification notification);
+	public boolean setProcurementNotification(Notification notification);
+	public boolean setProcurementNotificationForManager(Notification notification);
+	public boolean setSiteManagerNotification(Notification notification);
+	public boolean setSupplierNotification(Notification notification);
 }

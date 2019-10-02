@@ -9,11 +9,14 @@ import com.csse.procurement.CSSE_WE_29.constants.NotificationConstants;
 import com.csse.procurement.CSSE_WE_29.entity.Notification;
 import com.csse.procurement.CSSE_WE_29.entity.ProcurementNotification;
 import com.csse.procurement.CSSE_WE_29.entity.SiteManagerNotification;
+import com.csse.procurement.CSSE_WE_29.repository.NotificationRepository;
 import com.csse.procurement.CSSE_WE_29.repository.SiteManagerNotificationRepository;
 
 @Service
 public class SiteManagerNotificationService implements NotificationListener {
 
+	@Autowired
+	private NotificationRepository notificationRepository;
 	@Autowired
 	private SiteManagerNotificationRepository siteManagerNotificationRepository;
 	@Autowired
@@ -30,8 +33,14 @@ public class SiteManagerNotificationService implements NotificationListener {
 	public boolean saveNotification(Notification notification) {
 		try {
 			int notificationId = createNotificationId();
+			notification.set_id(null);
+			notification.setNotificationId(notificationId);
+			notification.setReceiverType("SiteManager");
+			notificationRepository.insert(notification);
+			
 			SiteManagerNotification siteManagerNotification = new SiteManagerNotification();
 			siteManagerNotification.setNotificationId(notificationId);
+			siteManagerNotification.setSender(notification.getSender());
 			siteManagerNotification.setReceiverType("SiteManager");
 			siteManagerNotification.setMessage(notification.getMessage());
 			siteManagerNotification.setPublishedDate(notification.getPublishedDate());

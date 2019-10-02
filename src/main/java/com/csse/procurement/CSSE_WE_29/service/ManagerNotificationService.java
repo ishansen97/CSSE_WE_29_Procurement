@@ -15,6 +15,8 @@ import com.csse.procurement.CSSE_WE_29.repository.NotificationRepository;
 public class ManagerNotificationService implements NotificationListener {
 
 	@Autowired
+	private NotificationRepository notificationRepository;
+	@Autowired
 	private ManagerNotificationRepository managerNotificationRepository;
 	@Autowired
 	private NotificationConstants notificationConstants;
@@ -30,8 +32,15 @@ public class ManagerNotificationService implements NotificationListener {
 	public boolean saveNotification(Notification notification) {
 		try {
 			int notificationId = createNotificationId();
+			notification.set_id(null);
+			notification.setNotificationId(notificationId);
+			notification.setReceiverType("Manager");
+			notificationRepository.insert(notification);
+			
+			
 			ManagerNotification managerNotification = new ManagerNotification();
 			managerNotification.setNotificationId(notificationId);
+			managerNotification.setSender(notification.getSender());
 			managerNotification.setReceiverType("Manager");
 			managerNotification.setMessage(notification.getMessage());
 			managerNotification.setPublishedDate(notification.getPublishedDate());

@@ -42,17 +42,21 @@ public class NotificationController {
 	@RequestMapping(method = RequestMethod.POST, value = "api/notification/insert-notification")
 	public ResponseEntity<Boolean> insertNotification(@RequestBody Notification notification) {
 //		boolean isInserted = notificationService.saveNotification(notification);
+		boolean isInserted = true;
 		if (notification.getReceiverType().equals("Manager")) {
-			notificationSubject.setProcurementNotificationForManager(notification);
+			isInserted = notificationSubject.setProcurementNotificationForManager(notification);
 		}
-		else if (notification.getPurchaseOrder().getOrdStatus().equals("Approved") || notification.getPurchaseOrder().getOrdStatus().equals("Rejected")) {
-			notificationSubject.setProcurementNotification(notification);
+		else if (notification.getSender().equals("Procurement")) {
+			isInserted = notificationSubject.setProcurementNotification(notification);
+		}
+		else if (notification.getSender().equals("Manager")) {
+			isInserted = notificationSubject.setManagerNotification(notification);
 		}
 		
-//		if (isInserted)
-			return new ResponseEntity<Boolean>(new Boolean(true), HttpStatus.OK);
-//		else
-//			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.INTERNAL_SERVER_ERROR);
+		if (isInserted)
+			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.OK);
+		else
+			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	

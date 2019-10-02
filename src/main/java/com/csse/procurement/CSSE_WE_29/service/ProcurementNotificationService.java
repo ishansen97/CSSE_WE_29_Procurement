@@ -9,11 +9,14 @@ import com.csse.procurement.CSSE_WE_29.constants.NotificationConstants;
 import com.csse.procurement.CSSE_WE_29.entity.ManagerNotification;
 import com.csse.procurement.CSSE_WE_29.entity.Notification;
 import com.csse.procurement.CSSE_WE_29.entity.ProcurementNotification;
+import com.csse.procurement.CSSE_WE_29.repository.NotificationRepository;
 import com.csse.procurement.CSSE_WE_29.repository.ProcurementNotificationRepository;
 
 @Service
 public class ProcurementNotificationService implements NotificationListener {
 
+	@Autowired
+	private NotificationRepository notificationRepository;
 	@Autowired
 	private ProcurementNotificationRepository procurementNotificationRepository;
 	@Autowired
@@ -30,8 +33,15 @@ public class ProcurementNotificationService implements NotificationListener {
 	public boolean saveNotification(Notification notification) {
 		try {
 			int notificationId = createNotificationId();
+			notification.set_id(null);
+			notification.setNotificationId(notificationId);
+			notification.setReceiverType("Procurement");
+			notificationRepository.insert(notification);
+			
+			
 			ProcurementNotification procurementNotification = new ProcurementNotification();
 			procurementNotification.setNotificationId(notificationId);
+			procurementNotification.setSender(notification.getSender());
 			procurementNotification.setReceiverType("Procurement");
 			procurementNotification.setMessage(notification.getMessage());
 			procurementNotification.setPublishedDate(notification.getPublishedDate());
