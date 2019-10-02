@@ -45,6 +45,16 @@ public class AssignBudgetController {
 			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	@RequestMapping(method = RequestMethod.PUT, value = "api/budget/update-budget")
+	public ResponseEntity<Boolean> updateBudget(@RequestBody AssignBudget assignBudget) {
+		boolean isUpdated = assignBudgetService.update(assignBudget);
+		
+		if (isUpdated)
+			return new ResponseEntity<Boolean>(new Boolean(isUpdated), HttpStatus.OK);
+		else
+			return new ResponseEntity<Boolean>(new Boolean(isUpdated), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
 	
 	@RequestMapping("api/budget/get-budget/{budgetId}")
 	public ResponseEntity<AssignBudget> getBudget(@PathVariable("budgetId") int budgetId) {

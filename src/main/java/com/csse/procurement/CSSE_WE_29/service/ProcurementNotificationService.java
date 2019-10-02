@@ -1,41 +1,56 @@
 package com.csse.procurement.CSSE_WE_29.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.csse.procurement.CSSE_WE_29.constants.NotificationConstants;
+import com.csse.procurement.CSSE_WE_29.entity.ManagerNotification;
 import com.csse.procurement.CSSE_WE_29.entity.Notification;
 import com.csse.procurement.CSSE_WE_29.entity.ProcurementNotification;
-import com.csse.procurement.CSSE_WE_29.repository.ManagerNotificationRepository;
 import com.csse.procurement.CSSE_WE_29.repository.NotificationRepository;
 import com.csse.procurement.CSSE_WE_29.repository.ProcurementNotificationRepository;
-import com.csse.procurement.CSSE_WE_29.repository.SupplierNotifcationRepository;
 
 @Service
-public class NotificationService implements NotificationListener {
+public class ProcurementNotificationService implements NotificationListener {
 
 	@Autowired
 	private NotificationRepository notificationRepository;
 	@Autowired
+	private ProcurementNotificationRepository procurementNotificationRepository;
+	@Autowired
 	private NotificationConstants notificationConstants;
 	
-	public List<Notification> findAllNotifications() {
-		return notificationRepository.findAll();
+	public List<ProcurementNotification> findAllNotifications() {
+		return procurementNotificationRepository.findAll();
 	}
 	
 	public Notification findByNotificationId(int notification_Id) {
-		return notificationRepository.findByNotificationId(notification_Id);
+		return procurementNotificationRepository.findByNotificationId(notification_Id);
 	}
 	
 	public boolean saveNotification(Notification notification) {
 		try {
 			int notificationId = createNotificationId();
+			notification.set_id(null);
 			notification.setNotificationId(notificationId);
+			notification.setReceiverType("Procurement");
+			notificationRepository.insert(notification);
 			
-			notificationRepository.save(notification);
+			
+			ProcurementNotification procurementNotification = new ProcurementNotification();
+			procurementNotification.setNotificationId(notificationId);
+			procurementNotification.setSender(notification.getSender());
+			procurementNotification.setReceiverType("Procurement");
+			procurementNotification.setMessage(notification.getMessage());
+			procurementNotification.setPublishedDate(notification.getPublishedDate());
+			procurementNotification.setReadDate(notification.getReadDate());
+			procurementNotification.setPurchaseOrder(notification.getPurchaseOrder());
+			procurementNotification.setItems(notification.getItems());
+			procurementNotification.setSupplier(notification.getSupplier());
+			
+			procurementNotificationRepository.save(procurementNotification);
 			
 			
 		} catch (Exception ex) {
@@ -47,7 +62,7 @@ public class NotificationService implements NotificationListener {
 
 	public boolean deleteItem(Notification notification) {
 		try {
-			notificationRepository.delete(notification);
+			procurementNotificationRepository.delete((ProcurementNotification) notification);
 			
 		} catch (Exception ex) {
 			throw ex;
@@ -56,11 +71,12 @@ public class NotificationService implements NotificationListener {
 	}
 	
 	public int createNotificationId() {
-		Notification notification = notificationRepository.findTop1ByOrderByNotificationIdDesc();
+		
 		int last_Id = 0;
 		int new_Id = 0;
 		
 		try {
+			Notification notification = procurementNotificationRepository.findTop1ByOrderByNotificationIdDesc();
 			last_Id = notification.getNotificationId();
 			
 			if (last_Id != 0) {
@@ -77,12 +93,10 @@ public class NotificationService implements NotificationListener {
 	
 	public boolean updateReadStatus(Notification notification) {
 		try {
-			notificationRepository.save(notification);
+			procurementNotificationRepository.save((ProcurementNotification) notification);
 		} catch (Exception ex) {
 			
 		}
 		return true;
 	}
-	
-
 }
