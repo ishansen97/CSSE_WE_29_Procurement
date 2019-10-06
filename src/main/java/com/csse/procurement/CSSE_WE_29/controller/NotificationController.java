@@ -18,7 +18,7 @@ import com.csse.procurement.CSSE_WE_29.service.NotificationSubject;
 import com.csse.procurement.CSSE_WE_29.service.NotificationSubjectImpl;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"}, allowedHeaders = {"authorization", "content-type"})
+@CrossOrigin(origins = {"*"}, allowedHeaders = {"authorization", "content-type"})
 public class NotificationController {
 
 	@Autowired

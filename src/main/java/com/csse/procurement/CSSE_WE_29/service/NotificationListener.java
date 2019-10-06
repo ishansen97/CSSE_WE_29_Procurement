@@ -11,6 +11,6 @@ public interface NotificationListener {
 	public List<? extends Notification> findAllNotifications();
 	public Notification findByNotificationId(int notification_Id);
 	public boolean saveNotification(Notification notification);
-	public boolean deleteItem(Notification notification);
+	public boolean deleteNotification(Notification notification);
 	public boolean updateReadStatus(Notification notification);
 }

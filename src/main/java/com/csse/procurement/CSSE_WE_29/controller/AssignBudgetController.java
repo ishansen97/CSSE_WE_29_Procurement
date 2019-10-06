@@ -18,7 +18,7 @@ import com.csse.procurement.CSSE_WE_29.entity.Notification;
 import com.csse.procurement.CSSE_WE_29.service.AssignBudgetService;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"}, allowedHeaders = {"authorization", "content-type"})
+@CrossOrigin(origins = {"*"}, allowedHeaders = {"authorization", "content-type"})
 public class AssignBudgetController {
 
 	@Autowired

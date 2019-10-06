@@ -44,9 +44,9 @@ public class NotificationSubjectImpl implements NotificationSubject{
 	@Override
 	public boolean setManagerNotification(Notification notification) {
 		listeners.clear();
-		listeners.add(new ProcurementNotificationService());
-		listeners.add(new SiteManagerNotificationService());
-		listeners.add(new SupplierNotificationService());
+		listeners.add(procurementNotificationService);
+		listeners.add(siteManagerNotificationService);
+		listeners.add(supplierNotificationService);
 		this.notification = notification;
 		try {
 			notifyListeners();

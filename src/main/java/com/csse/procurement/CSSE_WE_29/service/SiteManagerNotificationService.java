@@ -61,7 +61,7 @@ public class SiteManagerNotificationService implements NotificationListener {
 	}
 
 
-	public boolean deleteItem(Notification notification) {
+	public boolean deleteNotification(Notification notification) {
 		try {
 			siteManagerNotificationRepository.delete((SiteManagerNotification) notification);
 			

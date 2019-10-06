@@ -17,7 +17,7 @@ import com.csse.procurement.CSSE_WE_29.entity.Supplier;
 import com.csse.procurement.CSSE_WE_29.service.SupplierService;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"}, allowedHeaders = {"authorization", "content-type"})
+@CrossOrigin(origins = {"*"}, allowedHeaders = {"authorization", "content-type"})
 public class SupplierController {
 
 	@Autowired

@@ -1,5 +1,6 @@
 package com.csse.procurement.CSSE_WE_29.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.csse.procurement.CSSE_WE_29.entity.Item;
+import com.csse.procurement.CSSE_WE_29.model.ItemForSiteManager;
+import com.csse.procurement.CSSE_WE_29.model.UpdateItemModel;
 import com.csse.procurement.CSSE_WE_29.service.ItemService;
+import com.csse.procurement.CSSE_WE_29.service.SupplierService;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"}, allowedHeaders = {"authorization", "content-type"})
+@CrossOrigin(origins = {"*"}, allowedHeaders = {"authorization", "content-type"})
 public class ItemController {
 
 	@Autowired
 	private ItemService itemService;
+	
+	@Autowired
+	private SupplierService supplierService;
 	
 	@RequestMapping("api/item/get-all-items")
 	public ResponseEntity<List<Item>> getItems() {
@@ -34,10 +41,57 @@ public class ItemController {
 		}
 	}
 	
+	@RequestMapping("api/item/get-all-items-for-site-manager")
+	public ResponseEntity<List<ItemForSiteManager>> getItemsForSiteManager() {
+		List<Item> items = null;
+		List<ItemForSiteManager> itemsForSiteManager = new ArrayList<ItemForSiteManager>();
+		items = itemService.findAllItems();
+		
+		for(Item i : items) {
+			itemsForSiteManager.add(
+					new ItemForSiteManager(
+							i.getItemId(), 
+							i.getItemPrice(), 
+							i.getItemType(), 
+							i.getItemQuantity(), 
+							i.getItemMetric(), 
+							i.getSupplierId(), 
+							supplierService.findBySupplierId(i.getSupplierId()).getSupplierName(), 
+							i.isCritical())
+					);
+		}
+		
+		if (itemsForSiteManager != null)
+			return new ResponseEntity<List<ItemForSiteManager>>(itemsForSiteManager, HttpStatus.OK);
+		else {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "api/item/insert-item")
 	public ResponseEntity<Boolean> insertItem(@RequestBody Item item) {
 		boolean isInserted = itemService.saveItem(item);
+		
+		if (isInserted)
+			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.CREATED);
+		else
+			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value = "api/item/update-item")
+	public ResponseEntity<Boolean> updateItem(@RequestBody Item item) {
+		boolean isInserted = itemService.updateItem(item);
+		
+		if (isInserted)
+			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.OK);
+		else
+			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@RequestMapping(method = RequestMethod.DELETE, value = "api/item/delete-item")
+	public ResponseEntity<Boolean> deleteItem(@RequestBody Item item) {
+		boolean isInserted = itemService.deleteItem(item);
 		
 		if (isInserted)
 			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.OK);
@@ -57,4 +111,16 @@ public class ItemController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "api/item/upadate-item-quantity")
+    public ResponseEntity<Boolean> updateItem(@RequestBody UpdateItemModel itemToUpdate) {
+	    Item item = itemService.findByItemId(itemToUpdate.getItemId());
+	    item.setItemQuantity(itemToUpdate.getValue());
+        boolean isInserted = itemService.saveItem(item);
+
+        if (isInserted)
+            return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.OK);
+        else
+            return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

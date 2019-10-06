@@ -60,7 +60,7 @@ public class ProcurementNotificationService implements NotificationListener {
 	}
 
 
-	public boolean deleteItem(Notification notification) {
+	public boolean deleteNotification(Notification notification) {
 		try {
 			procurementNotificationRepository.delete((ProcurementNotification) notification);
 			

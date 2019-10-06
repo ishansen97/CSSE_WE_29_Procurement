@@ -20,7 +20,7 @@ import com.csse.procurement.CSSE_WE_29.model.UpdatePurchaseOrderResponse;
 import com.csse.procurement.CSSE_WE_29.service.PurchaseOrderService;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"}, allowedHeaders = {"authorization", "content-type"})
+@CrossOrigin(origins = {"*"}, allowedHeaders = {"authorization", "content-type"})
 public class PurchaseOrderController {
 	
 	@Autowired

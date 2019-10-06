@@ -15,12 +15,12 @@ import com.csse.procurement.CSSE_WE_29.entity.ProcurementStaff;
 import com.csse.procurement.CSSE_WE_29.service.ProcurementStaffService;
 
 @RestController
+@CrossOrigin(origins = {"*"}, allowedHeaders = {"authorization", "content-type"})
 public class ProcurementController {
 	
 	@Autowired
 	private ProcurementStaffService procService;
 
-	@CrossOrigin(origins = {"http://localhost:4200"}, allowedHeaders = {"authorization", "content-type"})
 	@RequestMapping("api/procurement/get-procurement/{Id}")
 	public ResponseEntity<ProcurementStaff> getProcurementStaff(@PathVariable("Id") String Id) {
 		ProcurementStaff staff = null;
@@ -33,7 +33,6 @@ public class ProcurementController {
 		}
 	}
 	
-	@CrossOrigin(origins = {"http://localhost:4200"}, allowedHeaders = {"authorization", "content-type"})
 	@RequestMapping(method = RequestMethod.POST, value = "api/procurement/insert-procurement")
 	public ResponseEntity<Boolean> insertProcurementStaff(@RequestBody ProcurementStaff procStaff) {
 		boolean isInserted = procService.saveProcurementStaff(procStaff);
@@ -44,7 +43,26 @@ public class ProcurementController {
 			return new ResponseEntity<Boolean>(new Boolean(isInserted), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@CrossOrigin(origins = {"http://localhost:4200"}, allowedHeaders = {"authorization", "content-type"})
+	@RequestMapping(method = RequestMethod.PUT, value = "api/procurement/update-procurement")
+	public ResponseEntity<Boolean> updateProcurementStaff(@RequestBody ProcurementStaff procStaff) {
+		boolean isUpdated = procService.updateProcurementStaff(procStaff);
+		
+		if (isUpdated)
+			return new ResponseEntity<Boolean>(new Boolean(isUpdated), HttpStatus.OK);
+		else
+			return new ResponseEntity<Boolean>(new Boolean(isUpdated), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@RequestMapping(method = RequestMethod.DELETE, value = "api/procurement/delete-procurement")
+	public ResponseEntity<Boolean> deleteProcurementStaff(@RequestBody ProcurementStaff procStaff) {
+		boolean isDeleted = procService.deleteProcurementStaff(procStaff);
+		
+		if (isDeleted)
+			return new ResponseEntity<Boolean>(new Boolean(isDeleted), HttpStatus.OK);
+		else
+			return new ResponseEntity<Boolean>(new Boolean(isDeleted), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
 	@RequestMapping("api/procurement/get-last-procurement")
 	public ResponseEntity<ProcurementStaff> getLastProcurementStaff() {
 		ProcurementStaff staff = null;

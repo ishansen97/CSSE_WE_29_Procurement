@@ -45,7 +45,7 @@ public class NotificationService implements NotificationListener {
 	}
 
 
-	public boolean deleteItem(Notification notification) {
+	public boolean deleteNotification(Notification notification) {
 		try {
 			notificationRepository.delete(notification);
 			

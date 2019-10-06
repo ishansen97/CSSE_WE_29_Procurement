@@ -61,7 +61,7 @@ public class ManagerNotificationService implements NotificationListener {
 	}
 
 
-	public boolean deleteItem(Notification notification) {
+	public boolean deleteNotification(Notification notification) {
 		try {
 			managerNotificationRepository.delete((ManagerNotification) notification);
 			

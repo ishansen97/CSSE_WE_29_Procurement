@@ -19,7 +19,7 @@ import com.csse.procurement.CSSE_WE_29.service.LoginCredentialsService;
 import com.csse.procurement.CSSE_WE_29.service.NotificationService;
 
 @Controller
-@CrossOrigin(origins = {"http://localhost:4200"}, allowedHeaders = {"authorization", "content-type"})
+@CrossOrigin(origins = {"*"}, allowedHeaders = {"authorization", "content-type"})
 public class LoginCredentialsController {
 
 	@Autowired

@@ -61,7 +61,7 @@ public class SupplierNotificationService implements NotificationListener {
 	}
 
 
-	public boolean deleteItem(Notification notification) {
+	public boolean deleteNotification(Notification notification) {
 		try {
 			supplierNotificationRepository.delete((SupplierNotification) notification);
 			

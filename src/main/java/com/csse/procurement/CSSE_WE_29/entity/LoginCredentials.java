@@ -2,8 +2,10 @@ package com.csse.procurement.CSSE_WE_29.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Component;
 
 @Document(collection = "loginCredentials")
+@Component
 public class LoginCredentials {
 	@Id
 	private String _id;

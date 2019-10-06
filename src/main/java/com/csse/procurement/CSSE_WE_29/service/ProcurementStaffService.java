@@ -84,6 +84,28 @@ public class ProcurementStaffService {
 		
 	}
 	
+	public boolean updateProcurementStaff(ProcurementStaff staff) {
+		
+		try {
+			procurementStaffRepository.save(staff);
+		} catch (Exception ex) {
+			throw ex;
+		}
+		return true;
+		
+	}
+	
+	public boolean deleteProcurementStaff(ProcurementStaff staff) {
+		
+		try {
+			procurementStaffRepository.delete(staff);
+		} catch (Exception ex) {
+			throw ex;
+		}
+		return true;
+		
+	}
+	
 	
 	
 }
